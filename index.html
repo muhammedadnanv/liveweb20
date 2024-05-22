@@ -84,9 +84,9 @@
   <div class="container">
     <h2 class="text-center mb-4">Join Our Course</h2>
     <div class="course-description">
-      <h4><i class="fas fa-info-circle"></i>Course Overview</h4>
+      <h4><i class="fas fa-info-circle"></i> Course Overview</h4>
       <p>Our Web Design with AI Course provides you with the skills and knowledge to create stunning websites using the latest AI technologies. Whether you're a beginner or an experienced designer, this course will help you take your web design skills to the next level.</p>
-      <h4><i class="fas fa-list-alt"></i>What You'll Learn</h4>
+      <h4><i class="fas fa-list-alt"></i> What You'll Learn</h4>
       <ul>
         <li>Fundamentals of web design and development</li>
         <li>How to integrate AI tools to enhance web design</li>
@@ -94,29 +94,29 @@
         <li>Best practices for user experience (UX) and user interface (UI)</li>
       </ul>
     </div>
-    <form id="joinForm" novalidate>
+    <form id="joinForm" action="https://formbold.com/s/9Ex5z" method="POST" novalidate>
       <div class="form-group">
         <label for="name"><i class="fas fa-user"></i> Full Name:</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
         <div class="invalid-feedback">
           Please enter your full name.
         </div>
       </div>
       <div class="form-group">
         <label for="email"><i class="fas fa-envelope"></i> Email address:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
         <div class="invalid-feedback">
           Please enter a valid email address.
         </div>
       </div>
       <div class="form-group">
         <label for="phone"><i class="fas fa-phone"></i> Phone Number:</label>
-        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
         <div class="invalid-feedback">
           Please enter your phone number.
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Join Now for ₹999</button>
+      <button type="submit" class="btn btn-primary btn-block">Join Now</button>
     </form>
 
     <div class="terms">
@@ -158,88 +158,67 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
+  // Timer
+  function startTimer(duration, display) {
+    var timer = duration, hours, minutes, seconds;
+    setInterval(function () {
+      hours = parseInt(timer / 3600, 10);
+      minutes = parseInt((timer % 3600) / 60, 10);
+      seconds = parseInt(timer % 60, 10);
 
-    document.getElementById('joinForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      if (this.checkValidity()) {
-        sendEmail();
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = hours + ":" + minutes + ":" + seconds;
+
+      if (--timer < 0) {
+        timer = duration;
       }
-    });
+    }, 1000);
+  }
 
-    function sendEmail() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
+  window.onload = function () {
+    var twentyFourHours = 24 * 60 * 60; // 24 hours in seconds
+    var display = document.querySelector('#time');
+    startTimer(twentyFourHours, display);
+  };
 
-      const mailtoLink = `mailto:adnanmuhammad4393@gmail.com?subject=New Course Registration&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
+  // Form validation
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      var forms = document.getElementsByClassName('needs-validation');
+      Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
 
-      window.location.href = mailtoLink;
-    }
+  // Random people notification
+  const names = [
+    "Arun", "Anjali", "Manoj", "Meera", "Rahul", "Rekha", "Vijay", "Vidya",
+    "Ajay", "Aparna", "Kiran", "Krishna", "Mohan", "Maya", "Ravi", "Radhika",
+    "Suresh", "Shweta", "Vikram", "Varsha"
+  ];
 
-    // Timer
-    function startTimer(duration, display) {
-      var timer = duration, hours, minutes, seconds;
-      setInterval(function () {
-        hours = parseInt(timer / 3600, 10);
-        minutes = parseInt((timer % 3600) / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = hours + ":" + minutes + ":" + seconds;
-
-        if (--timer < 0) {
-          timer = duration;
-        }
-      }, 1000);
-    }
-
-    window.onload = function () {
-      var twentyFourHours = 24 * 60 * 60; // 24 hours in seconds
-      var display = document.querySelector('#time');
-      startTimer(twentyFourHours, display);
-    };
-
-    // Random people notification
-    const names = [
-      "Arun", "Anjali", "Manoj", "Meera", "Rahul", "Rekha", "Vijay", "Vidya",
-      "Ajay", "Aparna", "Kiran", "Krishna", "Mohan", "Maya", "Ravi", "Radhika",
-      "Suresh", "Sujatha", "Vivek", "Veena", "Akash", "Aishwarya", "Dinesh", "Divya",
-      "Harish", "Haritha", "Naveen", "Neha", "Pranav", "Pooja", "Sanjay", "Shweta",
-      "Deepak", "Deepti", "Jithin", "Jisha", "Nithin", "Nimisha", "Sudeep", "Swapna",
-      "Aamir", "Ayesha", "Azhar", "Fathima", "Hamza", "Irfan", "Jamal", "Kareem",
-      "Laila", "Mahmood", "Nazia", "Omar", "Parveen", "Qasim", "Razia", "Saif",
-      "Tariq", "Yasmin", "Zain", "Zara"
-    ];
+  function showRandomNotification() {
+    const name = names[Math.floor(Math.random() * names.length)];
     const notification = document.getElementById('notification');
+    notification.innerText = `${name} just enrolled in the course!`;
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 3000);
+  }
 
-    function showNotification() {
-      const name = names[Math.floor(Math.random() * names.length)];
-      notification.textContent = `${name} just joined the course!`;
-      notification.style.display = 'block';
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
-    }
-
-    setInterval(showNotification, 5000); // Show notification every 5 seconds
-  </script>
+  setInterval(showRandomNotification, 15000); // Show notification every 15 seconds
+</script>
 </body>
 </html>
