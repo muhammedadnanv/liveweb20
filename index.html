@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Design with AI Course</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f9;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .header p {
+      font-size: 1.2rem;
+    }
+    .header .timer {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-top: -40px;
+      position: relative;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #2a5298;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #1e3c72;
+    }
+    .terms {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .course-description {
+      margin: 20px 0;
+    }
+    .course-description i {
+      color: #2a5298;
+      margin-right: 10px;
+    }
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2a5298;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Web Design with AI Course</h1>
+    <p>Learn how to design websites using AI for just ₹999!</p>
+    <div class="timer" id="timer">
+      Offer ends in: <span id="time">24:00:00</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="text-center mb-4">Join Our Course</h2>
+    <div class="course-description">
+      <h4><i class="fas fa-info-circle"></i>Course Overview</h4>
+      <p>Our Web Design with AI Course provides you with the skills and knowledge to create stunning websites using the latest AI technologies. Whether you're a beginner or an experienced designer, this course will help you take your web design skills to the next level.</p>
+      <h4><i class="fas fa-list-alt"></i>What You'll Learn</h4>
+      <ul>
+        <li>Fundamentals of web design and development</li>
+        <li>How to integrate AI tools to enhance web design</li>
+        <li>Responsive design techniques</li>
+        <li>Best practices for user experience (UX) and user interface (UI)</li>
+      </ul>
+    </div>
+    <form id="joinForm" novalidate>
+      <div class="form-group">
+        <label for="name"><i class="fas fa-user"></i> Full Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+        <div class="invalid-feedback">
+          Please enter your full name.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email address:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+        <div class="invalid-feedback">
+          Please enter a valid email address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone"><i class="fas fa-phone"></i> Phone Number:</label>
+        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+        <div class="invalid-feedback">
+          Please enter your phone number.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Join Now for ₹999</button>
+    </form>
+
+    <div class="terms">
+      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModal">
+        <i class="fas fa-file-alt"></i> View Terms and Conditions
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>Basic English proficiency is required.</li>
+            <li>You need a Wi-Fi connection.</li>
+            <li>A laptop or a smartphone is required.</li>
+            <li>If using a phone, you must install the software provided by us.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification" id="notification"></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+
+    document.getElementById('joinForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (this.checkValidity()) {
+        sendEmail();
+      }
+    });
+
+    function sendEmail() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+
+      const mailtoLink = `mailto:adnanmuhammad4393@gmail.com?subject=New Course Registration&body=Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}`;
+
+      window.location.href = mailtoLink;
+    }
+
+    // Timer
+    function startTimer(duration, display) {
+      var timer = duration, hours, minutes, seconds;
+      setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          timer = duration;
+        }
+      }, 1000);
+    }
+
+    window.onload = function () {
+      var twentyFourHours = 24 * 60 * 60; // 24 hours in seconds
+      var display = document.querySelector('#time');
+      startTimer(twentyFourHours, display);
+    };
+
+    // Random people notification
+    const names = [
+      "Arun", "Anjali", "Manoj", "Meera", "Rahul", "Rekha", "Vijay", "Vidya",
+      "Ajay", "Aparna", "Kiran", "Krishna", "Mohan", "Maya", "Ravi", "Radhika",
+      "Suresh", "Sujatha", "Vivek", "Veena", "Akash", "Aishwarya", "Dinesh", "Divya",
+      "Harish", "Haritha", "Naveen", "Neha", "Pranav", "Pooja", "Sanjay", "Shweta",
+      "Deepak", "Deepti", "Jithin", "Jisha", "Nithin", "Nimisha", "Sudeep", "Swapna",
+      "Aamir", "Ayesha", "Azhar", "Fathima", "Hamza", "Irfan", "Jamal", "Kareem",
+      "Laila", "Mahmood", "Nazia", "Omar", "Parveen", "Qasim", "Razia", "Saif",
+      "Tariq", "Yasmin", "Zain", "Zara"
+    ];
+    const notification = document.getElementById('notification');
+
+    function showNotification() {
+      const name = names[Math.floor(Math.random() * names.length)];
+      notification.textContent = `${name} just joined the course!`;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    setInterval(showNotification, 5000); // Show notification every 5 seconds
+  </script>
+</body>
+</html>
